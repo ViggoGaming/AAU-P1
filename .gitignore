@@ -45,3 +45,7 @@
 
 ### OLD ###
 /old/*
+
+### Build files ###
+client
+server

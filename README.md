@@ -3,4 +3,4 @@
 Dette GitHub repository indeholder alt koden bag vores P1 projekt på Cyber- og computerteknologi studiet på Aalborg Universitet i København
 
 ## Todo
-- [] Skriv hvordan programmet kan opsættes og køres
+* [ ] Skriv hvordan programmet kan opsættes og køres

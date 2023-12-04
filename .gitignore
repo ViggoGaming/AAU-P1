@@ -49,3 +49,6 @@
 ### Build files ###
 client
 server
+
+### VSCODE ###
+.vscode/*

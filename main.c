@@ -9,31 +9,31 @@
 #define ENABLE_COLORS // Kommenter denne linje ud for at deaktivere farver
 
 #ifdef ENABLE_COLORS
-#define BLK "\e[0;30m"
-#define RED "\e[0;31m"
-#define GRN "\e[0;32m"
-#define YEL "\e[0;33m"
-#define BLU "\e[0;34m"
-#define MAG "\e[0;35m"
-#define CYN "\e[0;36m"
-#define WHT "\e[0;37m"
-#define reset "\e[0m"
+    #define BLK "\e[0;30m"
+    #define RED "\e[0;31m"
+    #define GRN "\e[0;32m"
+    #define YEL "\e[0;33m"
+    #define BLU "\e[0;34m"
+    #define MAG "\e[0;35m"
+    #define CYN "\e[0;36m"
+    #define WHT "\e[0;37m"
+    #define reset "\e[0m"
 #else
-#define BLK ""
-#define RED ""
-#define GRN ""
-#define YEL ""
-#define BLU ""
-#define MAG ""
-#define CYN ""
-#define WHT ""
-#define reset ""
+    #define BLK ""
+    #define RED ""
+    #define GRN ""
+    #define YEL ""
+    #define BLU ""
+    #define MAG ""
+    #define CYN ""
+    #define WHT ""
+    #define reset ""
 #endif
 
 #define PORT 8080 // Port til serveren
 
 // Filnavn til CSV-filen
-#define FILENAME "NordicHarvest_Data_T01.csv"
+#define FILENAME "Data_T01.csv"
 
 typedef struct {
     char Date[20];                 // 0
@@ -245,7 +245,7 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
             fflush(gnuplotPipe);
             pclose(gnuplotPipe);
         } else {
-            printf("Fejl ved åbning af gnuplot pipe, tjek om gnuplot er installeret\n");
+            printf("Fejl ved åbning af gnuplot, tjek om gnuplot er installeret\n");
         }
     }
     if (strcmp(plotType, "Electrical Conductivity") == 0) {
@@ -273,7 +273,7 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
             fflush(gnuplotPipe);
             pclose(gnuplotPipe);
         } else {
-            printf("Fejl ved åbning af gnuplot pipe, tjek om gnuplot er installeret\n");
+            printf("Fejl ved åbning af gnuplot, tjek om gnuplot er installeret\n");
         }
     }
     if (strcmp(plotType, "Oxygen Level") == 0) {
@@ -301,7 +301,7 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
             fflush(gnuplotPipe);
             pclose(gnuplotPipe);
         } else {
-            printf("Fejl ved åbning af gnuplot pipe, tjek om gnuplot er installeret\n");
+            printf("Fejl ved åbning af gnuplot, tjek om gnuplot er installeret\n");
         }
     }
     if (strcmp(plotType, "Temperature") == 0) {
@@ -330,7 +330,7 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
             fflush(gnuplotPipe);
             pclose(gnuplotPipe);
         } else {
-            printf("Fejl ved åbning af gnuplot pipe, tjek om gnuplot er installeret\n");
+            printf("Fejl ved åbning af gnuplot, tjek om gnuplot er installeret\n");
         }
     }
     if (strcmp(plotType, "Water Height") == 0) {
@@ -359,7 +359,7 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
             fflush(gnuplotPipe);
             pclose(gnuplotPipe);
         } else {
-            printf("Fejl ved åbning af gnuplot pipe, tjek om gnuplot er installeret\n");
+            printf("Fejl ved åbning af gnuplot, tjek om gnuplot er installeret\n");
         }
     }
 }

@@ -35,6 +35,14 @@
 // Filnavn til CSV-filen
 #define FILENAME "Data_T01.csv"
 
+
+// Grænseværdier for advarsler symbolske konstanter
+#define electricalConductivityThreshold 2.0
+#define pHThreshold 6.0
+#define oxygenLevelThreshold 5.2
+#define temperatureThreshold 21.0
+#define waterHeightThreshold 1.0
+
 typedef struct {
     char Date[20];                 // 0
     double ElectricalConductivity; // 1
@@ -47,7 +55,7 @@ typedef struct {
 // Prototyper
 int read_file(const char *, Data[], int);
 void add(Data *, int, double, char *);
-void alert(Data *, int, double, double, double, double, double);
+void alert(Data *, int);
 void appendToFile(const char *, const char *);
 void receiveData(Data[], int);
 void plotGraph(Data[], int, char *);
@@ -64,13 +72,7 @@ int main(void) {
                data[i].Date, data[i].ElectricalConductivity, data[i].pH, data[i].OxygenLevel, data[i].Temperature, data[i].WaterHeight);
     }
 
-    double electricalConductivityThreshold = 2.0;
-    double pHThreshold = 6.0;
-    double oxygenLevelThreshold = 5.2;
-    double temperatureThreshold = 21.0;
-    double waterHeightThreshold = 1.0;
-
-    alert(data, num_lines, electricalConductivityThreshold, pHThreshold, oxygenLevelThreshold, temperatureThreshold, waterHeightThreshold);
+    alert(data, num_lines);
 
     // Plot grafer
     plotGraph(data, num_lines, "pH");
@@ -122,7 +124,7 @@ void add(Data *data, int index, double valueToAdd, char *type) {
     printf(GRN "Tilføjer %.2lf enheder den %s til Tank 01\n" reset, valueToAdd, data->Date);
 }
 
-void alert(Data *data, int num_lines, double electricalConductivityThreshold, double pHThreshold, double oxygenLevelThreshold, double temperatureThreshold, double waterHeightThreshold) {
+void alert(Data *data, int num_lines) {
     for (int i = 0; i < num_lines; i++) {
         if (data[i].pH < pHThreshold) {
             printf(RED "Advarsel: pH-værdien den Date %s er under grænseværdien!\n" reset, data[i].Date);

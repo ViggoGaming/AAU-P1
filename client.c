@@ -7,7 +7,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define IPADDRESS "127.0.0.1" // IP-adresse til serveren
+#define IPADDRESS "127.0.0.1" // (Egen computer) IP-adresse til serveren
 #define PORT 8080             // Port til serveren
 
 typedef struct {
@@ -102,10 +102,10 @@ void generateRandomData(Data *newData) {
 
 // Funktion til manuel indtastning fra brugeren
 void generateManualData(Data *newData) {
-    printf("Indtast dato: ");
-    scanf(" %[^\n]", newData->Date);
+    printf("Indtast dato (YYYY/MM/DD HH.MM): ");
+    scanf(" %[^\n]", newData->Date); // %[^\n] = læs indtil der et linjeskift
 
-    printf("Indtast Electrical Conductivity: ");
+    printf("Indtast elektrisk resistivitet: ");
     scanf("%lf", &newData->ElectricalConductivity);
 
     printf("Indtast pH: ");

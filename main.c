@@ -6,35 +6,34 @@
 #include <unistd.h>
 
 // Farvekoder hentet fra https://gist.github.com/RabaDabaDoba/145049536f815903c79944599c6f952a
-#define ENABLE_COLORS // Kommenter denne linje ud for at deaktivere farver
+#define ENABLE_COLORS // Kommenter denne linje ud for at deaktivere farver i terminalen
 
 #ifdef ENABLE_COLORS
-    #define BLK "\e[0;30m"
-    #define RED "\e[0;31m"
-    #define GRN "\e[0;32m"
-    #define YEL "\e[0;33m"
-    #define BLU "\e[0;34m"
-    #define MAG "\e[0;35m"
-    #define CYN "\e[0;36m"
-    #define WHT "\e[0;37m"
-    #define reset "\e[0m"
+#define BLK "\e[0;30m"
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define BLU "\e[0;34m"
+#define MAG "\e[0;35m"
+#define CYN "\e[0;36m"
+#define WHT "\e[0;37m"
+#define reset "\e[0m"
 #else
-    #define BLK ""
-    #define RED ""
-    #define GRN ""
-    #define YEL ""
-    #define BLU ""
-    #define MAG ""
-    #define CYN ""
-    #define WHT ""
-    #define reset ""
+#define BLK ""
+#define RED ""
+#define GRN ""
+#define YEL ""
+#define BLU ""
+#define MAG ""
+#define CYN ""
+#define WHT ""
+#define reset ""
 #endif
 
 #define PORT 8080 // Port til serveren
 
 // Filnavn til CSV-filen
 #define FILENAME "Data_T01.csv"
-
 
 // Grænseværdier for advarsler symbolske konstanter
 #define electricalConductivityThreshold 2.0
@@ -157,7 +156,7 @@ void appendToFile(const char *filename, const char *data) {
         exit(EXIT_FAILURE);
     }
     // Append/tilføj data til filen
-    fprintf(fp, "%s", data);
+    fprintf(fp, "%s\n", data);
     fclose(fp);
 }
 
@@ -193,7 +192,7 @@ void receiveData(Data data[], int max_lines) {
     if (listen(socketConnectionBind, 10) == 0) {
         printf("Lytter på port %d...\n", PORT);
     } else {
-        perror("Fejl ved lytning, tjek om porten allerede er i brug\n");
+        printf("Fejl ved lytning, tjek om porten allerede er i brug\n");
         exit(EXIT_FAILURE);
     }
 
@@ -222,7 +221,9 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
 
     // plotType = 0: pH, 1: Electrical Conductivity, 2: Oxygen Level, 3: Temperature, 4: Water Height
 
+
     if (strcmp(plotType, "pH") == 0) {
+        // fopen (file open)
         FILE *tempFile = fopen("graph-data.txt", "w");
         // Skriv data til den graph-data.txt filen
         for (int i = 0; i < num_lines; i++) {
@@ -231,6 +232,8 @@ void plotGraph(Data data[], int num_lines, char *plotType) {
 
         fclose(tempFile);
 
+
+        // popen (process open) og pclose (process close)
         FILE *gnuplotPipe = popen("gnuplot -persist", "w");
 
         if (gnuplotPipe) {

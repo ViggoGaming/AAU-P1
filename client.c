@@ -1,9 +1,9 @@
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -102,8 +102,22 @@ void generateRandomData(Data *newData) {
 
 // Funktion til manuel indtastning fra brugeren
 void generateManualData(Data *newData) {
-    printf("Indtast dato (YYYY/MM/DD HH.MM): ");
-    scanf(" %[^\n]", newData->Date); // %[^\n] = læs indtil der et linjeskift
+    while (1) {
+        printf("Indtast dato (YYYY/MM/DD HH.MM): ");
+        if (scanf(" %19[^\n]", newData->Date) == 1) { // %[^\n] = læs indtil der et linjeskift
+            int year, month, day, hour, minute;
+            if (sscanf(newData->Date, "%d/%d/%d %d.%d", &year, &month, &day, &hour, &minute) == 5) {
+                if (year >= 1000 && year <= 9999 &&
+                    month >= 1 && month <= 12 &&
+                    day >= 1 && day <= 31 &&
+                    hour >= 0 && hour <= 23 &&
+                    minute >= 0 && minute <= 59) {
+                    break;
+                }
+            }
+        }
+        printf("Ugyldig dato format. Venligst indtast det i formatet YYYY/MM/DD HH.MM\n");
+    }
 
     printf("Indtast elektrisk resistivitet: ");
     scanf("%lf", &newData->ElectricalConductivity);

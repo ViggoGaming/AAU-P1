@@ -82,6 +82,7 @@ int main(void) {
 
     // Modtag data fra klienten
     receiveData(data, 500);
+    
 
     return 0;
 }
